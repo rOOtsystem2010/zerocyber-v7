@@ -1,0 +1,40 @@
+# ZeroCyber v7 — GitLab CI SAST Template
+# Add this to your .gitlab-ci.yml or include it
+
+variables:
+  ZEROCYBER_VERSION: "7.0.0"
+  ZEROCYBER_FORMAT: "sarif"
+  ZEROCYBER_OUTPUT: "zerocyber-report.sarif"
+
+stages:
+  - test
+  - security
+
+zerocyber-sast:
+  stage: security
+  image: python:3.11-slim
+  variables:
+    GIT_DEPTH: "10"
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git
+    - pip install --no-cache-dir tree-sitter tree-sitter-python tree-sitter-javascript tree-sitter-typescript tree-sitter-go jinja2
+    # Install ZeroCyber from repository or PyPI
+    - pip install --no-cache-dir -e . || pip install zerocyber
+  script:
+    - echo "Running ZeroCyber v${ZEROCYBER_VERSION} security scan..."
+    - zerocyber scan . --format ${ZEROCYBER_FORMAT} --output ${ZEROCYBER_OUTPUT} --workers 4 --verbose
+    - zerocyber scan . --format html --output zerocyber-report.html --workers 4
+  artifacts:
+    reports:
+      sast: ${ZEROCYBER_OUTPUT}
+    paths:
+      - zerocyber-report.html
+      - ${ZEROCYBER_OUTPUT}
+    expire_in: 30 days
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+  tags:
+    - docker

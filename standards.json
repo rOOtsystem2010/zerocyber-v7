@@ -1,0 +1,196 @@
+{
+  "metadata": {
+    "version": "v7.0",
+    "last_updated": "2026-05-03",
+    "description": "Standards mapping for ZeroCyber v7.0"
+  },
+  "mappings": {
+    "Command Injection": {
+      "cwe": "CWE-78",
+      "cwe_description": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A3: Injection",
+      "capec": "CAPEC-88",
+      "nist_800_53": ["SI-10", "SC-23"],
+      "pci_dss": ["6.5.1"]
+    },
+    "SQL Injection": {
+      "cwe": "CWE-89",
+      "cwe_description": "Improper Neutralization of Special Elements in SQL Command ('SQL Injection')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A3: Injection",
+      "capec": "CAPEC-66",
+      "nist_800_53": ["SI-10", "SC-23"],
+      "pci_dss": ["6.5.1"]
+    },
+    "Code Injection": {
+      "cwe": "CWE-94",
+      "cwe_description": "Improper Control of Generation of Code ('Code Injection')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A3: Injection",
+      "capec": "CAPEC-242",
+      "nist_800_53": ["SI-10", "SC-23"],
+      "pci_dss": ["6.5.1"]
+    },
+    "SSRF": {
+      "cwe": "CWE-918",
+      "cwe_description": "Server-Side Request Forgery (SSRF)",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:N",
+      "cvss_base_score": 8.6,
+      "owasp_2026": "A5: SSRF",
+      "capec": "CAPEC-664",
+      "nist_800_53": ["SC-7", "AC-3"],
+      "pci_dss": ["1.3.1"]
+    },
+    "Path Traversal": {
+      "cwe": "CWE-22",
+      "cwe_description": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cvss_base_score": 7.5,
+      "owasp_2026": "A1: Broken Access Control",
+      "capec": "CAPEC-126",
+      "nist_800_53": ["AC-3", "SC-4"],
+      "pci_dss": ["6.5.8"]
+    },
+    "Insecure Deserialization": {
+      "cwe": "CWE-502",
+      "cwe_description": "Deserialization of Untrusted Data",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A8: Insecure Deserialization",
+      "capec": "CAPEC-586",
+      "nist_800_53": ["SI-10", "SC-39"],
+      "pci_dss": ["6.5.10"]
+    },
+    "XSS": {
+      "cwe": "CWE-79",
+      "cwe_description": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "cvss_base_score": 6.1,
+      "owasp_2026": "A3: Injection",
+      "capec": "CAPEC-63",
+      "nist_800_53": ["SI-10"],
+      "pci_dss": ["6.5.7"]
+    },
+    "Authentication Bypass": {
+      "cwe": "CWE-306",
+      "cwe_description": "Missing Authentication for Critical Function",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A2: Cryptographic Failures / A1: Broken Access Control",
+      "capec": "CAPEC-115",
+      "nist_800_53": ["IA-2", "AC-3"],
+      "pci_dss": ["8.2", "6.5.10"]
+    },
+    "IDOR": {
+      "cwe": "CWE-639",
+      "cwe_description": "Authorization Bypass Through User-Controlled Key",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+      "cvss_base_score": 6.5,
+      "owasp_2026": "A1: Broken Access Control",
+      "capec": "CAPEC-122",
+      "nist_800_53": ["AC-3", "AC-6"],
+      "pci_dss": ["6.5.8"]
+    },
+    "Hardcoded Secret": {
+      "cwe": "CWE-798",
+      "cwe_description": "Use of Hard-coded Credentials",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A7: Identification and Authentication Failures",
+      "capec": "CAPEC-191",
+      "nist_800_53": ["IA-5"],
+      "pci_dss": ["8.2.1"]
+    },
+    "Unsafe Eval": {
+      "cwe": "CWE-95",
+      "cwe_description": "Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A3: Injection",
+      "capec": "CAPEC-242",
+      "nist_800_53": ["SI-10"],
+      "pci_dss": ["6.5.1"]
+    },
+    "Prototype Pollution": {
+      "cwe": "CWE-915",
+      "cwe_description": "Improperly Controlled Modification of Dynamically-Determined Object Attributes",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+      "cvss_base_score": 7.4,
+      "owasp_2026": "A1: Broken Access Control",
+      "capec": "CAPEC-242",
+      "nist_800_53": ["SI-10"],
+      "pci_dss": ["6.5.1"]
+    },
+    "XML External Entity (XXE)": {
+      "cwe": "CWE-611",
+      "cwe_description": "Improper Restriction of XML External Entity Reference",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:N",
+      "cvss_base_score": 7.5,
+      "owasp_2026": "A5: Security Misconfiguration",
+      "capec": "CAPEC-201",
+      "nist_800_53": ["SI-10", "SC-23"],
+      "pci_dss": ["6.5.1"]
+    },
+    "NoSQL Injection": {
+      "cwe": "CWE-943",
+      "cwe_description": "Improper Neutralization of Special Elements in Data Query Logic",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_base_score": 9.8,
+      "owasp_2026": "A3: Injection",
+      "capec": "CAPEC-66",
+      "nist_800_53": ["SI-10"],
+      "pci_dss": ["6.5.1"]
+    },
+    "Open Redirect": {
+      "cwe": "CWE-601",
+      "cwe_description": "URL Redirection to Untrusted Site ('Open Redirect')",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "cvss_base_score": 6.1,
+      "owasp_2026": "A1: Broken Access Control",
+      "capec": "CAPEC-162",
+      "nist_800_53": ["SI-10"],
+      "pci_dss": ["6.5.10"]
+    },
+    "Information Disclosure": {
+      "cwe": "CWE-200",
+      "cwe_description": "Exposure of Sensitive Information to an Unauthorized Actor",
+      "cvss_base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cvss_base_score": 7.5,
+      "owasp_2026": "A5: Security Misconfiguration",
+      "capec": "CAPEC-118",
+      "nist_800_53": ["SC-28"],
+      "pci_dss": ["3.4", "8.2.1"]
+    }
+  },
+  "cvss_adjustments": {
+    "scope_changed": 1.0,
+    "scope_unchanged": 0.0,
+    "has_sanitization": -0.5,
+    "no_sanitization": 0.0,
+    "authenticated_required": -0.3,
+    "no_authentication": 0.0,
+    "complexity_low": 0.0,
+    "complexity_high": -0.2
+  },
+  "confidence_rules": {
+    "LOW": {
+      "description": "Pattern match only - no flow confirmed",
+      "min_score": 0.0,
+      "max_score": 0.3
+    },
+    "MEDIUM": {
+      "description": "Local flow within function - no sanitization",
+      "min_score": 0.3,
+      "max_score": 0.6
+    },
+    "HIGH": {
+      "description": "Inter-procedural flow with no sanitization",
+      "min_score": 0.6,
+      "max_score": 1.0
+    }
+  }
+}

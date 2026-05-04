@@ -1,0 +1,87 @@
+name: ZeroCyber Security Scan
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  schedule:
+    - cron: '0 2 * * 1'  # Weekly on Monday at 2 AM
+
+jobs:
+  zerocyber-scan:
+    name: ZeroCyber v7 Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install ZeroCyber
+        run: |
+          pip install tree-sitter tree-sitter-python tree-sitter-javascript tree-sitter-typescript tree-sitter-go jinja2
+          # If ZeroCyber is published to PyPI:
+          # pip install zerocyber
+          # Or use local installation:
+          # pip install -e .
+
+      - name: Run ZeroCyber Scan
+        run: |
+          python -m zerocyber_v7.cli scan . \
+            --format sarif \
+            --output zerocyber-results.sarif \
+            --workers 4 \
+            --verbose
+        continue-on-error: true
+
+      - name: Upload SARIF to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: zerocyber-results.sarif
+          category: zerocyber
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zerocyber-html-report
+          path: zerocyber-results.html
+
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let summary = '## 🛡️ ZeroCyber Security Scan Results\n\n';
+            try {
+              const sarif = JSON.parse(fs.readFileSync('zerocyber-results.sarif', 'utf8'));
+              const results = sarif.runs[0].results;
+              const errors = results.filter(r => r.level === 'error').length;
+              const warnings = results.filter(r => r.level === 'warning').length;
+              summary += `**Vulnerabilities Found:** ${results.length}\n`;
+              summary += `- 🔴 Critical/High: ${errors}\n`;
+              summary += `- 🟡 Medium/Low: ${warnings}\n\n`;
+              summary += 'See full SARIF results in the Security tab.';
+            } catch (e) {
+              summary += 'Scan completed. See artifacts for full report.';
+            }
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
